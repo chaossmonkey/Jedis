@@ -15,15 +15,21 @@ public class JedisService {
 
     private final JedisPool jedisPool;
 
-  @Autowired
-    public JedisService(JedisPool jedisPool) {
+    private Jedis jedis;
+
+    @Autowired
+    public JedisService(JedisPool jedisPool, Jedis jedis) {
         this.jedisPool = jedisPool;
+        this.jedis = jedis;
     }
+
+
 
     public void setValue(String key, String value) {
         try (Jedis jedis = jedisPool.getResource()) {
             jedis.set(key, value);
         }
+        jedis.set("law","cdk");
     }
 
     public String getValue(String key) {
@@ -59,6 +65,7 @@ public class JedisService {
             // Print the set values
             for (String value : setValues) {
                 System.out.println(value);
+
             }
         }
     }
