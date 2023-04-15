@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
+import java.util.Map;
+
 @Service
 public class JedisService {
 
@@ -26,6 +28,25 @@ public class JedisService {
         try (Jedis jedis = jedisPool.getResource()) {
             return jedis.get(key);
         }
+    }
+
+    public void doStuffInHashMap()
+    {
+
+        try (Jedis jedis = jedisPool.getResource()) {
+            jedis.hset("myHash", "ande", "value1");
+            jedis.hset("myHash", "gunde", "value2");
+            jedis.hset("myHash", "pende", "value3");
+
+
+            String valueByKey = jedis.hget("myHash", "ande");
+            System.out.println("Value for key1: " + valueByKey);
+            Map<String, String> hashValues = jedis.hgetAll("myHash");
+            System.out.println("-------------");
+            System.out.println(hashValues);
+        }
+
+
     }
 
 }
