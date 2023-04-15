@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
+import java.util.List;
+
 @Service
 public class JedisService {
 
@@ -27,5 +29,20 @@ public class JedisService {
             return jedis.get(key);
         }
     }
+    public String SetUplist()
+    {
+        try (Jedis jedis = jedisPool.getResource()) {
+            jedis.lpush("myList", "value1", "123", "value3");
+            return "lol";
+        }
+    }
+    public List<String> getMeThingsInTheList()
+    {
+        try(Jedis jedis=jedisPool.getResource()) {
+            List<String> list=jedis.lrange("myList",0,-1);//gives all values of the list associated with the key called "myList"
+            return list;
+        }
+    }
+
 
 }
