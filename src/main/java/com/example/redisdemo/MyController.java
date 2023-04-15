@@ -26,4 +26,10 @@ public class MyController {
     public String get(@RequestParam("key") String key) {
         return jedisService.getValue(key);
     }
+
+    @GetMapping("/randomApiForList")
+    public void randomApiForList()
+    {
+        jedisService.randomThingsOnList();
+    }
 }
