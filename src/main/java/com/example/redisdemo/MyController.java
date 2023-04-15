@@ -28,14 +28,20 @@ public class MyController {
     public String get(@RequestParam("key") String key) {
         return jedisService.getValue(key);
     }
-//    @GetMapping("/randomApiForListAdd")
-//    public String randomApi()
-//    {
-//        return jedisService.SetUplist();
-//    }
-//    @GetMapping("/randomApiForListGet")
-//    public List<String> randomListGetApiByKey()
-//    {
-//        return jedisService.getMeThingsInTheList();
-//    }
+
+
+    @GetMapping("/randomApiForSet")
+    public void randomApiForSet()
+    {
+        jedisService.randomOpsOnSet();
+    }
+
+    @GetMapping("/randomApiForSortedSet")
+    public void randomApiForSortedSet()
+    {
+        jedisService.randomOpsOnSortedSet();
+    }
+
+
+
 }
